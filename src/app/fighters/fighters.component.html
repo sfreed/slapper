@@ -1,10 +1,15 @@
 <dx-data-grid id="gridContainer" 
+    style="background-image: url('../assets/MK.png'); background-repeat: no-repeat; background-size: cover;"
     class="mt-2"
     [dataSource]="datasource" 
     [showBorders]="true" 
     [renderAsync]="true"
     (onRowUpdating)="onRowUpdating($event)"
-    [height]="700">
+    [height]="700"
+    [showRowLines]="true"
+    [showColumnLines]="false"
+    [showBorders]="false"
+    [rowAlternationEnabled]="true">
     <dxo-paging [pageSize]="10"></dxo-paging>
     <dxo-pager 
         [showPageSizeSelector]="true" 
@@ -42,4 +47,51 @@
     <dxi-column dataField="initiative" [alignment]="'center'" [dataType]="'number'">
         <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
+    <dxi-column dataField="wins" [alignment]="'center'" [dataType]="'number'" [allowEditing]="false">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataField="losses" [alignment]="'center'" [dataType]="'number'" [allowEditing]="false">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column type="buttons" [width]="110">
+        <dxi-button
+          hint="Display Fight History"
+          icon="search"
+          [visible]="true"
+          [onClick]="displayFightHistory.bind(this)">
+        </dxi-button>
+        <dxi-button name="delete"></dxi-button>
+      </dxi-column>
 </dx-data-grid>
+
+<dx-popup
+    [width]="350"
+    [height]="500"
+    [showTitle]="true"
+    title="Fight History"
+    [dragEnabled]="false"
+    [closeOnOutsideClick]="true"
+    [(visible)]="view">
+    <div class="row d-flex justify-content-around mt-2">
+        <div class="col">
+            <dx-list
+                [dataSource]="selectedFighter.fightsAgainst"
+                height="350"
+                [showSelectionControls]="false"
+                [scrollingEnabled]="true">
+                <div *dxTemplate="let item of 'item'">
+                    <div class="row">
+                        <div class="col-4">{{item.id}}</div>
+                        <div class="col-4">({{item.result}})</div>
+                        <div class="col-4">{{item.score}}</div>
+                    </div>
+                </div>
+            </dx-list>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-around mt-2">
+        <div class="col">
+            <button style="float: right;" class="btn btn-primary" (click)="close()">Cancel</button>
+        </div>
+    </div>
+</dx-popup>

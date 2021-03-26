@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { FighterService } from '../fighters/fighter.service';
-import { Fighter } from '../models/fighter.model';
-import { RoundResult } from '../models/round_result.model';
+import { Fighter } from '../core/models/fighter.model';
+import { RoundResult } from '../core/models/round_result.model';
 import notify from 'devextreme/ui/notify';
 import CustomStore from 'devextreme/data/custom_store';
+import { FighterService } from '../core/services/fighter.service';
 
 @Component({
   selector: 'app-matches',
@@ -37,7 +37,11 @@ export class MatchesComponent {
 
   startBattle(){
     if(this.fighter1 && this.fighter2){
-
+      if(this.fighter1.id == this.fighter2.id){
+        notify('Please Select 2 Different Fighters', 'error', 2000);
+        return;
+      }
+      
       this.resetBattle();
       
       let firstAttacker: Fighter = this.fighter1; 
@@ -53,7 +57,7 @@ export class MatchesComponent {
   
       this.fightRound(firstAttacker, secondAttacker);      
     } else {
-      notify('Please select 2 Fighters', 'error', 2000);
+      notify('Please Select 2 Fighters', 'error', 2000);
     } 
   }
 
@@ -67,24 +71,23 @@ export class MatchesComponent {
         this.attack(fighter1, fighter2);
 
         if(fighter2.battlehealth <= 0){
-          this.logRoundResult('Fight Over - ' + fighter2.name + ' killed');
+          this.recordMatch(fighter1, fighter2);
           return;
         }
       }
 
       if(fighter2AttackCount-- > 0){
-
         this.attack(fighter2, fighter1);
 
         if(fighter1.battlehealth <= 0){
-          this.logRoundResult('Fight Over - ' + fighter1.name + ' killed');
+          this.recordMatch(fighter2, fighter1);
           return;
         }
       }
     }
 
-    this.logRoundResult('End of Round Results: ' + fighter1.name + ' (' + fighter1.battlehealth +
-      ') -vs- ' + fighter2.name + ' (' + fighter2.battlehealth + ')')
+    this.logRoundResult('End of Round Results: ' + fighter1.name + ' (' + fighter1.battlehealth +') -vs- ' + 
+      fighter2.name + ' (' + fighter2.battlehealth + ')')
 
     this.round++;
 
@@ -130,5 +133,22 @@ export class MatchesComponent {
       let r: number = Math.floor(Math.random() * 100) + 1;
       let w: number = r * weight/100;
       return r + w;
+  }
+
+  recordMatch(winner: Fighter, loser: Fighter){
+    this.logRoundResult('Fight Over - ' + loser.name + ' killed');
+    loser.losses = loser.losses + 1;
+    if(!loser.fightsAgainst){
+      loser.fightsAgainst = [];
+    }
+    loser.fightsAgainst.push({result: 'loss', id: winner.name, score: winner.battlehealth + " => " + loser.battlehealth })
+    this.fighterService.updateFighter(loser.id, loser);
+    winner.wins = winner.wins + 1;
+    if(!winner.fightsAgainst){
+      winner.fightsAgainst = [];
+    }
+    winner.fightsAgainst.push({result: 'win', id: loser.name, score: winner.battlehealth + " => " + loser.battlehealth })
+    this.fighterService.updateFighter(winner.id, winner);
+    notify('Victory! ' + winner.name)
   }
 }

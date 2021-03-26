@@ -8,4 +8,7 @@ export class Fighter{
     critical: number=0;
     initiative: number=0;
     battlehealth: number=0;
+    wins: number=0;
+    losses: number=0;
+    fightsAgainst: any[]=[]
   }

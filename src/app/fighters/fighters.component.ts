@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import CustomStore from 'devextreme/data/custom_store';
-import { Fighter } from '../models/fighter.model';
-import { FighterService } from './fighter.service';
+import { FighterService } from '../core/services/fighter.service';
+import { Fighter } from '../core/models/fighter.model';
 
 @Component({
   selector: 'app-fighters',
@@ -10,6 +10,10 @@ import { FighterService } from './fighter.service';
 })
 export class FightersComponent implements OnInit {
   datasource: any;
+
+  view: boolean = false;
+
+  selectedFighter: Fighter = new Fighter();
 
   constructor(fighterService: FighterService) { 
     this.datasource = new CustomStore({
@@ -41,4 +45,13 @@ export class FightersComponent implements OnInit {
     options.newData = Object.assign(options.oldData, options.newData);
   }
 
+  displayFightHistory(e){
+    this.selectedFighter = e.row.data;
+    
+    this.view = true
+  }
+
+  close(){
+    this.view = false
+  }
 }

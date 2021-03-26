@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { DxButtonModule, DxDataGridModule, DxLookupModule, DxTabsModule } from 'devextreme-angular';
+import { DxButtonModule, DxDataGridModule, DxListModule, DxLookupModule, DxPopupModule, DxTabsModule } from 'devextreme-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +25,8 @@ import { environment } from 'src/environments/environment';
     DxDataGridModule,
     DxLookupModule,
     DxButtonModule,
+    DxPopupModule,
+    DxListModule,
 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,

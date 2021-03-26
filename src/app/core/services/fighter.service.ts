@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Fighter } from '../models/fighter.model';
-
+import { Fighter } from 'src/app/core/models/fighter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,7 @@ export class FighterService {
   }
 
   public getFighters(): Observable<Fighter[]>{
-    return this.db.collection<Fighter>('fighters').valueChanges({idField: 'id'})
+    return this.db.collection<Fighter>('fighters', (ref)=> ref.orderBy('name')).valueChanges({idField: 'id'})
   }
 
   public createFighter(fighter: Fighter): Promise<DocumentReference<Fighter>> {
