@@ -1,5 +1,5 @@
-<div class="row mt-3">
-    <div class="col-5 text-center">
+<div class="d-flex justify-content-start mt-3">
+    <div class="col-5">
         <div class="dx-field">
             <div class="dx-field-label" style="color: black;"><h5>Fighter 1</h5></div>
             <div class="dx-field-value">
@@ -22,10 +22,15 @@
             </div>
         </div>
     </div>
-    <div class="col-1 text-center">
-        <h5>-vs-</h5>
+    <div class="col-2 text-center">
+        <dx-button 
+            text="Attack!"
+            stylingMode="contained"
+            type="danger"
+            (onClick)="startBattle()">
+        </dx-button>
     </div>
-    <div class="col-5 text-center">
+    <div class="col-5">
         <div class="dx-field">
             <div class="dx-field-label" style="color: black;"><h5>Fighter 2</h5></div>
             <div class="dx-field-value">
@@ -47,14 +52,6 @@
                 </dx-lookup>
             </div>
         </div>
-    </div>
-    <div class="col-1 text-center">
-        <dx-button 
-            text="Attack!"
-            stylingMode="contained"
-            type="danger"
-            (onClick)="startBattle()">
-        </dx-button>
     </div>
 </div>
 
