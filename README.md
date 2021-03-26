@@ -11,6 +11,7 @@ A few different technologies were used to build this application:
 1. Angular 11 / Node.js.
 2. DevExpress Angular Library.
 3. Firebase FireStore.
+4. Bootstrap 4.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.2.
 
