@@ -1,0 +1,64 @@
+<div class="row mt-3">
+    <div class="col-4">
+        <div class="dx-field">
+            <div class="dx-field-label" style="color: black;"><h5>Fighter 1</h5></div>
+            <div class="dx-field-value">
+                <dx-lookup
+                    [dataSource]="datasource"
+                    [(value)]="fighter1"
+                    [displayExpr]="'name'"
+                    [searchEnabled]="false"
+                    [closeOnOutsideClick]="true"
+                    [noDataText]="'No Fighters Exist'"
+                    [showCancelButton]="false">
+                    <dxo-drop-down-options [showTitle]="false" ></dxo-drop-down-options>
+                    <div *dxTemplate="let item of 'field'">
+                        <div class="custom-field">
+                            <h6 style="color: black;">{{item.name}}</h6>
+                        </div>
+                    </div>
+                </dx-lookup>
+            </div>
+        </div>
+    </div>
+    <div class="col-1 text-center">
+        -vs-
+    </div>
+    <div class="col-4">
+        <div class="dx-field">
+            <div class="dx-field-label" style="color: black;"><h5>Fighter 2</h5></div>
+            <div class="dx-field-value">
+                <dx-lookup
+                    [dataSource]="datasource"
+                    [(value)]="fighter2"
+                    [displayExpr]="'name'"
+                    [searchEnabled]="false"
+                    [closeOnOutsideClick]="true"
+                    [noDataText]="'No Fighters Exist'"
+                    [showCancelButton]="false">
+                    <dxo-drop-down-options [showTitle]="false" ></dxo-drop-down-options>
+                </dx-lookup>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 text-center">
+        <dx-button 
+            text="Attack!"
+            stylingMode="contained"
+            type="danger"
+            (onClick)="startBattle()">
+        </dx-button>
+    </div>
+</div>
+
+<dx-data-grid id="gridContainer" 
+    class="mt-2"
+    [dataSource]="round_results" 
+    [showBorders]="true" 
+    [renderAsync]="true"
+    [height]="600">
+    <dxo-paging [pageSize]="15"></dxo-paging>
+    <dxi-column dataField="round" [alignment]="'center'" [width]="'25%'"></dxi-column>
+    <dxi-column dataField="message"></dxi-column>
+</dx-data-grid>
+

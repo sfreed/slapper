@@ -1,0 +1,45 @@
+<dx-data-grid id="gridContainer" 
+    class="mt-2"
+    [dataSource]="datasource" 
+    [showBorders]="true" 
+    [renderAsync]="true"
+    (onRowUpdating)="onRowUpdating($event)"
+    [height]="700">
+    <dxo-paging [pageSize]="10"></dxo-paging>
+    <dxo-pager 
+        [showPageSizeSelector]="true" 
+        [allowedPageSizes]="[5, 10, 20]" 
+        [showInfo]="true"
+        [visible]="true">
+    </dxo-pager>
+    <dxo-editing 
+        mode="cell" 
+        [allowUpdating]="true" 
+        [allowAdding]="true"
+        [allowDeleting]="true" 
+        [useIcons]="true">
+    </dxo-editing>
+    <dxo-scrolling mode="infinite"></dxo-scrolling>
+    <dxo-sorting mode="multiple"></dxo-sorting>
+    <dxi-column dataField="name" [width]="'25%'">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataField="health" [alignment]="'center'" [dataType]="'number'">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataField="damage" [alignment]="'center'" [dataType]="'number'">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataField="attacks" [alignment]="'center'" [dataType]="'number'">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataField="dodge" [alignment]="'center'" [dataType]="'number'">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataField="critical" [alignment]="'center'" [dataType]="'number'">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataField="initiative" [alignment]="'center'" [dataType]="'number'">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+</dx-data-grid>

@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <dx-tabs #apiTabs [dataSource]="tabs" [selectedIndex]="0" (onItemClick)="selectTab($event)">
+        </dx-tabs>
+        <ng-template [ngIf]="selectedTab == 'Matches'">
+            <app-matches></app-matches>
+        </ng-template>
+  
+        <ng-template [ngIf]="selectedTab == 'Fighters'">
+            <app-fighters></app-fighters>
+        </ng-template>
+      </div>
+    </div>
+  </div>
