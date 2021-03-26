@@ -43,7 +43,8 @@ export class MatchesComponent {
       let firstAttacker: Fighter = this.fighter1; 
       let secondAttacker: Fighter = this.fighter2; 
 
-      if(this.generateWeightedRandomResult(this.fighter1.initiative) < this.generateWeightedRandomResult(this.fighter2.initiative)){
+      if(this.generateWeightedRandomResult(this.fighter1.initiative) < 
+          this.generateWeightedRandomResult(this.fighter2.initiative)){
         firstAttacker = this.fighter2; 
         secondAttacker = this.fighter1; 
       }
@@ -82,8 +83,8 @@ export class MatchesComponent {
       }
     }
 
-    this.logRoundResult('End of Round Results: ' + fighter1.name + ' (' + fighter1.battlehealth + ') -vs- ' +
-        fighter2.name + ' (' + fighter2.battlehealth + ')')
+    this.logRoundResult('End of Round Results: ' + fighter1.name + ' (' + fighter1.battlehealth +
+      ') -vs- ' + fighter2.name + ' (' + fighter2.battlehealth + ')')
 
     this.round++;
 
@@ -97,21 +98,19 @@ export class MatchesComponent {
     } else {
       if(defender.critical >= this.generateWeightedRandomResult(0)){
         this.logRoundResult(attacker.name + ' hits '+ defender.name +' for ' + 
-        (attacker.damage*2) +' *Critical* damage (' + defender.battlehealth + '-> '+ (defender.battlehealth - (attacker.damage*2)) +')');
+        (attacker.damage*2) +' *Critical* damage (' + defender.battlehealth + ' -> '+ 
+          (defender.battlehealth - (attacker.damage*2)) +')');
         
         defender.battlehealth = defender.battlehealth - (attacker.damage*2);
       } else {
         this.logRoundResult(attacker.name + ' hits '+ defender.name +' for ' + 
-        attacker.damage +' damage (' + defender.battlehealth + '-> '+ (defender.battlehealth - (attacker.damage)) +')');
+          attacker.damage +' damage (' + defender.battlehealth + '-> ' + 
+            (defender.battlehealth - (attacker.damage)) +')');
 
         defender.battlehealth = defender.battlehealth - (attacker.damage);
       }
-
     }
-
-
   }
-
 
   logRoundResult(message: string){
     let round_result: RoundResult = new RoundResult();
@@ -129,9 +128,7 @@ export class MatchesComponent {
 
   generateWeightedRandomResult(weight:number): number{
       let r: number = Math.floor(Math.random() * 100) + 1;
-
       let w: number = r * weight/100;
-
       return r + w;
   }
 }
